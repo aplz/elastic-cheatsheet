@@ -1,6 +1,8 @@
 # elastic-cheatsheet
 a cheat sheet for elastic
 
+Even more cheats: http://elasticsearch-cheatsheet.jolicode.com/
+
 ## Searching
 ### OR
 Find all items that are either 'red' or 'round'. 
