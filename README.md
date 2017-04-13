@@ -44,6 +44,32 @@ GET index_name/_search
     }
 }
 ```
+## More Like This
+[More Like This Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-mlt-query.html)
+### with nested fields
+Assuming indexed documents are baskets with articles as nested fields, and the goal is to find similar baskets to the one specified by 'basket_id' (based upon the article's brand, color and size), a query might look like this.
+```
+{
+"query": {
+    "nested":{
+        "path":"articles",
+        "query":{
+            "more_like_this" : {
+                "fields" : ["articles.brand", "articles.color", "articles.size"],
+                "like" : [
+                {
+                    "_index" : "basket_index",
+                    "_type" : "basket",
+                    "_id" : "basket_id"
+                }
+                ],
+                "min_term_freq" : 1,
+                "max_query_terms" : 20
+            }
+        }
+    }
+}
+```
 ## Deleting by query
 [Delete By Query API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-delete-by-query.html)
 ### by field value
