@@ -44,11 +44,36 @@ GET index_name/_search
     }
 }
 ```
+### by time range / time of day
+Find all events happening between 8.00am and 10.00am
+```[source,js]
+GET orders_nested/_search
+{
+  "query": {
+        "bool": {
+          "must": [
+            {
+              "script": {
+                "script": {
+                    "inline" : "doc['date_field'].date.hourOfDay >= params.min && doc['order_date'].date.hourOfDay < params.max",
+                    "params": {
+                      "min": 8,
+                      "max": 10
+                     }
+                 }
+              }
+            }
+          ]
+       }
+    }
+}
+```
+
 ## More Like This
 [More Like This Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-mlt-query.html)
 ### with nested fields
 Assuming indexed documents are baskets with articles as nested fields, and the goal is to find similar baskets to the one specified by 'basket_id' (based upon the article's brand, color and size), a query might look like this.
-```
+```[source,js]
 {
 "query": {
     "nested":{
