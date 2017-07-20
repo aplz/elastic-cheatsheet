@@ -140,7 +140,7 @@ POST _reindex
   }
 }
 ```
-Note that this will *not* respect any mappings you defined for source_index. The mappings in target_index will be inferred automatically. If you want to preserve the original mapping, you have to create target_index with this mapping. 
+Note that this will *not* respect any mappings you defined for source_index. The mappings in target_index will be inferred automatically. If you want to preserve the original mapping, you have to create target_index *before* reindexing with this mapping. 
 ```[source,js]
 PUT target_index 
 {
