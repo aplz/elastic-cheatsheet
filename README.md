@@ -71,6 +71,8 @@ GET orders_nested/_search
 
 ## More Like This
 [More Like This Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-mlt-query.html)
+### more control when querying different fields
+The MoreLikeThis query automatically selects the best field for a match. This is not detailed in the documentation but has been observed by me and also stated in [this discussion](https://github.com/elastic/elasticsearch/issues/13654). Since it is not obvious _why_ a specific field is chosen, you can gain some control by combining multiple MoreLikeThis queries in a boolean query that you can boost as you like. 
 ### with nested fields
 Assuming indexed documents are baskets with articles as nested fields, and the goal is to find similar baskets to the one specified by 'basket_id' (based upon the article's brand, color and size), a query might look like this.
 ```[source,js]
