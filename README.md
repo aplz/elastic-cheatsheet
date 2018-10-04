@@ -44,10 +44,26 @@ GET index_name/_search
     }
 }
 ```
+### sorted by nested time stamp
+Fetch items from index 'index' sorted by the time stamp in the nested field 'time'.
+```[source,js]
+GET index/_search
+{
+  "query": {"match_all": {}},
+  "sort": [
+    {
+      "path_to_field.time": {
+        "order": "desc",
+        "nested_path": "path_to_field"
+      }
+    }
+  ]
+}
+```
 ### by time range / time of day
 Find all events happening between 8.00am and 10.00am
 ```[source,js]
-GET orders_nested/_search
+GET index_nested/_search
 {
   "query": {
         "bool": {
@@ -108,6 +124,20 @@ POST index_name/_delete_by_query
         "term": {
           "field": {
              "value": "unwanted_value"
+           }
+        }
+    }
+}
+```
+### by missing value
+Delete all documents with that have no value in field 'field'.
+```[source,js]
+POST index_name/_delete_by_query
+{
+    "query": {
+        "term": {
+          "field": {
+             "value": ""
            }
         }
     }
