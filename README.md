@@ -84,6 +84,20 @@ GET index_nested/_search
     }
 }
 ```
+### in multiple fields with a regex
+Search for a term 'A' in all fields with named something like 'field_xyz' and return only those fields.
+```[source,js]
+GET index/_search
+{
+  "_source": ["field_*"], 
+  "query": {
+    "multi_match" : {
+      "query":    "A",
+      "fields": [ "field_*" ] 
+    }
+  }
+}
+```
 
 ## More Like This
 [More Like This Query DSL](https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-mlt-query.html)
