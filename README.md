@@ -200,3 +200,64 @@ PUT target_index
    }
 }   
 ```
+## Custom Analyzers
+Combine a [GermanAnalyzer](https://www.elastic.co/guide/en/elasticsearch/reference/current/analysis-lang-analyzer.html#german-analyzer) with a [SynonymFilter](https://www.elastic.co/guide/en/elasticsearch/reference/6.3/analysis-synonym-tokenfilter.html)
+```[source,js]
+PUT target_index
+{
+  "settings": {
+    "index": {
+      "analysis": {
+        "filter": {
+          "german_stop": {
+            "type": "stop",
+            "stopwords": "_german_"
+          },
+          "german_stemmer": {
+            "type": "stemmer",
+            "language": "light_german"
+          },
+          "synonym_filter": {
+            "type": "synonym",
+            "synonyms_path": "synonyms.txt"
+          }
+        },
+        "analyzer": {
+          "custom_german": {
+            "tokenizer": "standard",
+            "filter": [
+              "lowercase",
+              "german_stop",
+              "german_normalization",
+              "german_stemmer",
+              "synonym_filter"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "type": {
+      "properties": {
+        "text": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword"
+            },
+            "de_custom": {
+              "type": "text",
+              "analyzer": "custom_german"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+The settings above will have everything in `text` field run through a GermanAnalyzer and SynonymFilter and store the result in the field `text.de_custom`. 
+This [medium post](https://medium.com/@lucasmagnum/elasticsearch-setting-up-a-synonyms-search-facea907ef92) provides a more detailed explanation. 
+**Note**: The file 'synonyms.txt' **must** be located relative to the CONF_DIR of your elastic instance. See [here](https://discuss.elastic.co/t/500-error-synonym-file-cant-be-read/62345/2)
+
