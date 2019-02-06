@@ -258,6 +258,6 @@ PUT target_index
 }
 ```
 The settings above will have everything in `text` field run through a GermanAnalyzer and SynonymFilter and store the result in the field `text.de_custom`. 
-This [medium post](https://medium.com/@lucasmagnum/elasticsearch-setting-up-a-synonyms-search-facea907ef92) provides a more detailed explanation. 
-**Note**: The file 'synonyms.txt' **must** be located relative to the CONF_DIR of your elastic instance. See [here](https://discuss.elastic.co/t/500-error-synonym-file-cant-be-read/62345/2)
+This [medium post](https://medium.com/@lucasmagnum/elasticsearch-setting-up-a-synonyms-search-facea907ef92) provides a more detailed explanation.  
+**Note**: The file 'synonyms.txt' **must** be located relative to the CONF_DIR of your elastic instance. See [here](https://discuss.elastic.co/t/500-error-synonym-file-cant-be-read/62345/2) for instance.
 
