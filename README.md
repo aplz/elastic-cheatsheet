@@ -19,6 +19,27 @@ GET index_name/_search
     }
 }
 ```
+### with must and should
+Find all items that are round and either 'red' or 'round'. 
+```[source,js]
+GET index_name/_search
+{
+    "query": {
+        "bool": {
+            "must": [
+                {"term": {"shape": "round"}},
+                {"bool": {
+                        "should": [
+                            {"term": {"color": "red"}},
+                            {"term": {"color": "green"}}
+                        ]
+                    }
+                }
+            ]
+        }
+    }
+}
+```
 ### by field existence 
 Find all items with a field 'A'.
 ```[source,js]
