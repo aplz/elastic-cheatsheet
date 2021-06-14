@@ -20,7 +20,7 @@ GET index_name/_search
 }
 ```
 ### with must and should
-Find all items that are round and either 'red' or 'round'. 
+Find all items that are round and either 'red' or 'green'. 
 ```[source,js]
 GET index_name/_search
 {
